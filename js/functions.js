@@ -324,17 +324,33 @@ function saveTask( authorized, id ) {
       window.location.reload();
     }
     else if( $("#task").val().replace("'", "").replace('"', '') && !$("#time").val() ){
-      tasks["coordinates"].unshift( coords );
-      tasks["text"].unshift( $("#task").val().replace("'", "").replace('"', '') );
-      tasks["time"].unshift( $("#time").val() );
-      tasks["long"].unshift( $("#long").val() );
-      tasks["ready"].unshift( 0 );
+      if( saveAction == 'create' ) {
+        tasks["coordinates"].unshift( coords );
+        tasks["text"].unshift( $("#task").val().replace("'", "").replace('"', '') );
+        tasks["time"].unshift( $("#time").val() );
+        tasks["long"].unshift( $("#long").val() );
+        tasks["ready"].unshift( 0 );
 
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      i++;
-      localStorage.setItem("count", i);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        i++;
+        localStorage.setItem("count", i);
 
-      window.location.reload();
+        window.location.reload();
+      }
+      else if( saveAction == 'edit' ) {
+        tasks["coordinates"].splice(editElement, 1);
+        tasks["text"].splice(editElement, 1);
+        tasks["time"].splice(editElement, 1);
+        tasks["long"].splice(editElement, 1);
+        tasks["ready"].splice(editElement, 1);
+        tasks["coordinates"].unshift( coords );
+        tasks["text"].unshift( $("#task").val().replace("'", "").replace('"', '') );
+        tasks["time"].unshift( $("#time").val() );
+        tasks["long"].unshift( $("#long").val() );
+        tasks["ready"].unshift( 0 );
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        window.location.reload();
+      }
     }
   }
 }

@@ -1,7 +1,8 @@
 var
 userCoordinates, tasks = JSON.parse(localStorage.getItem("tasks")),
 params, i = localStorage.getItem("count"), j, refsPoints = [],
-labels = [], times = [], longs = [],  pathTime = [], arriveTime = [], h;
+labels = [], times = [], longs = [],  pathTime = [], arriveTime = [], h,
+emptyTimes = [];
 if (localStorage.getItem("changes")) {
   params = JSON.parse(localStorage.getItem("params"));
 } else {
@@ -20,6 +21,20 @@ function init() {
     zoom: 7
   });
   myMap.controls.remove('fullscreenControl').remove('searchControl').remove('rulerControl');
+
+  function calculateStartTimes() {
+    if( times[i] == '' ){
+      times[i] = "14:00";
+      emptyTimes[i] = 1;
+    }
+    for( j=i-2; j>=0; j-- ){
+      if( times[j] == '' || emptyTimes ){
+        times[j] = toHours( toMinutes(times[j+1].split(":")) - pathTime[j+1] - longs[j] );
+        emptyTimes[j] = 1;
+        console.log( toHours( toMinutes(times[j+1].split(":")) - pathTime[j+1] - longs[j] ) );
+      }
+    }
+  }
 
   function calculateTime( pathTime ) {
       console.table( pathTime );
@@ -96,6 +111,13 @@ function init() {
     });
     myMap.geoObjects.add(multiRoute);
     multiRoute.model.events.add('requestsuccess', function() {
+      getPathTime( multiRoute );
+      calculateStartTimes();
+      calculateTime( pathTime );
+      nameBaloons(multiRoute);
+    });
+
+    multiRoute.events.add('activeroutechange', function() {
       getPathTime( multiRoute );
       calculateStartTimes();
       calculateTime( pathTime );
