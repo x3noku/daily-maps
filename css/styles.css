@@ -1,0 +1,295 @@
+body {
+  padding: 0px;
+  height: 100%;
+}
+
+ul {
+  margin: 0px;
+}
+/*____________ Div Styles _______________*/
+
+.mdl-layout__header {
+  background-color: #DB4C3F;
+}
+
+.mdl-icon-toggle__label {
+  color: DarkGray;
+}
+.mdl-button.add-button {
+  background-color: #F55547;
+  color: #F8FEFD;
+}
+.mdl-button.add-button:hover {
+  background-color: #F55547;
+}
+.mdl-button.add-button:focus {
+  background-color: #F55547;
+}
+.mdl-spinner {
+  display: none;
+}
+
+.add-task--done.mdl-button {
+    background-color: #F55547;
+    color: #F8FEFD;
+}
+
+.add-task--done.mdl-button:focus {
+  background-color: #F55547;
+}
+
+.register-link {
+  font-size: small;
+  margin-left: auto;
+}
+
+.register-btn {
+  width: 100%;
+}
+
+.register-dialog, .login-dialog, .template-dialog {
+  width: 80%;
+}
+
+.select-field-div {
+  width: 100px;
+}
+
+.show-register-dialog {
+  cursor: pointer;
+}
+
+.email-code {
+  display: none;
+}
+
+.show-password {
+  cursor: pointer;
+  transition: 0.4s;
+}
+.show-password:hover, .show-password.dark:hover {
+  color: #F55547;
+}
+
+.pass-check {
+  color: #D50000;
+}
+
+.code-field {
+  display: none;
+}
+
+.time-to-go {
+  display: table;
+}
+
+.time-to-go > i, .time-to-go-span {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.address-line {
+  color: #999999;
+}
+
+#sign-section {
+  line-height: 50px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#user-info-li {
+  padding-bottom: 40px;
+}
+
+#user-img {
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+
+/*-_-_-_-_-_-_-_-_-_-_-_- Dark Styles -_-_-_-_-_-_-_-_-_-_-_-*/
+
+.mdl-switch.is-checked > .mdl-switch__track {
+  background-color: #525FA5;
+}
+
+.mdl-switch.is-checked > .mdl-switch__thumb {
+  background-color: #6877CA;
+}
+
+.mdl-layout__header.dark {
+  background-color: #313339;
+}
+
+.mdl-layout__drawer.dark {
+  background-color: #313339;
+}
+
+.mdl-layout__content.dark {
+  background-color: #3C4048;
+}
+
+.mdl-menu.dark {
+  background-color: #3C4048;
+}
+
+.mdl-menu.dark > li:hover {
+  background-color: #50535A;
+}
+
+.mdl-button.add-button.dark {
+  background-color: #50535A;
+  color: #F8FEFD;
+}
+.mdl-button.add-button.dark:hover {
+  background-color: #50535A;
+}
+.mdl-button.add-button.dark:focus {
+  background-color: #50535A;
+}
+
+
+
+.is-checked.dark>.mdl-radio__outer-circle {
+  border: 2px solid #7287DD;
+}
+
+.is-checked.dark>.mdl-radio__inner-circle {
+  background-color: #7287DD;
+}
+
+.dark>.mdl-radio__outer-circle {
+  border: 2px solid #BABDC4;
+}
+
+.build-route.dark {
+  background-color: #313339;
+}
+
+.add-task.dark {
+  background-color: #3C4048;
+}
+
+.add-task--done.dark {
+  background-color: #7287DD;
+}
+
+.add-task--done.dark:focus {
+  background-color: #7287DD;
+}
+
+.select-option.dark, dialog.dark {
+  background-color: #3C4048;
+  color: #BABDC4;
+}
+
+.show-password.dark, .mdl-menu.dark > li, .add-button.dark, .add-task--close.dark,
+#task.dark, #time.dark, #long.dark, #taskLabel.dark, #timeLabel.dark, #longLabel.dark,
+#mail-field.dark, #password-field.dark, #code-field.dark, #pass-field.dark, #login-field.dark,
+#parole-field.dark, #mail-field-label.dark, #password-field-label.dark, #pass-field-label.dark,
+#code-field-label.dark, #login-field-label.dark, #parole-field-label.dark {
+  color: #BABDC4;
+}
+
+/*-_-_-_-_-_-_-_-_-_-_-_- Position Styles -_-_-_-_-_-_-_-_-_-_-_-*/
+
+.mdl-dialog__actions {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.mdl-layout__content {
+  height: 100%;
+}
+
+.mdl-radio {
+  top: -12px;
+}
+
+.mdl-radio.is-checked>.mdl-radio__outer-circle {
+  border: 2px solid #DB4C3F;
+}
+
+.mdl-radio.is-checked>.mdl-radio__inner-circle {
+  background-color: #DB4C3F;
+}
+
+
+.add-button {
+  position: fixed;
+  right: 0.5%;
+  bottom: 1.5%;
+  z-index: 500;
+}
+
+.build-route {
+  position: fixed;
+  bottom: 1.5%;
+  z-index: 500;
+  display: none;
+}
+
+.add-task {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+
+  bottom: 0%;
+  padding: 0px;
+  z-index: 501;
+}
+
+.choosePlace {
+    min-width: 100%;
+}
+
+.page-content {
+  height: 100%;
+}
+
+.fullScreenRoute {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.add-task--close {
+  margin-right: auto;
+}
+
+#mdl-task {
+  padding: 8px;
+}
+
+#menu-title {
+  line-height: 1.5;
+  font-size: 16pt;
+  padding: 22px;
+}
+
+/*-_-_-_-_-_-_-_-_-_-_-_-<SCROLLBAR>-_-_-_-_-_-_-_-_-_-_-_-*/
+::-webkit-scrollbar {
+    width: 0.4%;
+}
+
+::-webkit-scrollbar-track {
+    background-color: inherit;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7C7A75;
+}
+/*-_-_-_-_-_-_-_-_-_-_-_-</SCROLLBAR>-_-_-_-_-_-_-_-_-_-_-_-*/
+
+@media(min-width: 512px) {
+  .select-field-div {
+    width: 150px;
+  }
+  .register-dialog, .login-dialog {
+    width: 380px;
+  }
+  .template-dialog {
+    width: 600px;
+    height: 600px;
+  }
+}

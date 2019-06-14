@@ -1,0 +1,150 @@
+
+body {
+  overflow-x: hidden;
+}
+
+header.signup {
+  display: grid;
+  height: 60px;
+  padding: 0% 4.3% 0% 4.3%;
+  border-bottom: 1px solid #E1E1E1;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+
+  z-index: 500;
+}
+
+#icon-long {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.section-title {
+  grid-area: title;
+  color: #474747;
+}
+.secondary-title {
+  color: #E44232;
+}
+
+.section-text {
+  grid-area: txt;
+  color: #6F6F6F;
+  font-size: large;
+}
+
+.section-btn {
+  grid-area: btn;
+
+  text-decoration: none;
+  text-align: center;
+  color: #FFF;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px 32px 16px 32px;
+  background-color: #E44232;
+  border-radius: 5px;
+  transition: 0.45s;
+}
+.section-btn:hover {
+  background-color: #E64E40;
+}
+
+.section-img {
+  grid-area: img;
+}
+
+.first-section {
+  width: 100%;
+  padding: 3.5%;
+  padding-top: 200px;
+
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  grid-template-rows: auto auto minmax(50px, auto);
+  grid-row-gap: 10px;
+  grid-template-areas:
+    "title title title"
+    "txt txt txt"
+    "btn btn ."
+    "img img img";
+}
+
+.section-title-two {
+  grid-area: title-two;
+  color: #474747;
+}
+
+.section-text-two {
+    grid-area: txt-two;
+    color: #6F6F6F;
+    font-size: large;
+}
+.txt-emp {
+  grid-area: emp-txt;
+  width: 100%;
+}
+
+.section-href {
+  grid-area: href;
+
+  text-decoration: none;
+  color: #E44232;
+  font-size: large;
+}
+.section-href:hover {
+  text-decoration: underline;
+}
+
+.section-img-two {
+    grid-area: img-two;
+}
+.empty {
+  grid-area: emp;
+  width: 100%;
+}
+
+.second-section {
+  width: 100%;
+  padding: 3.5%;
+  padding-top: 100px;
+
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  grid-template-rows: auto auto minmax(50px, auto);
+  grid-row-gap: 10px;
+  grid-template-areas:
+    "title-two title-two"
+    "txt-two txt-two"
+    "href ."
+    "img-two img-two";
+}
+
+@media(min-width: 768px) {
+
+  .first-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 1fr 5fr;
+    grid-template-areas:
+      "title title . . img"
+      "txt txt txt . img"
+      "btn btn . . img";
+  }
+  .second-section {
+    display: grid;
+    grid-template-columns: 4fr 1fr 3fr 3fr 1fr 1fr;
+    grid-template-areas:
+      "img-two emp title-two title-two . ."
+      "img-two emp txt-two txt-two txt-two emp-txt"
+      "img-two emp href . . .";
+  }
+
+}
+
+#banner0 {
+  max-width: none;
+}
