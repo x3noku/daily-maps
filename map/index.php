@@ -288,6 +288,7 @@ if( $params['leeway'] or $params['transport'] ){
 
 if( !empty($tasks) ){
   foreach ($tasks as $task) {
+    if( $task['coords_x'] != null and $task['coords_x'] != null ){
     ?>
     <script type="text/javascript">
       refsPoints.push([<?php echo $task['coords_x']; ?>,<?php echo $task['coords_y']; ?>] );
@@ -296,6 +297,7 @@ if( !empty($tasks) ){
       longs.push(<?php echo $task['long']; ?>);
     </script>
     <?php
+    }
   }
 }
 

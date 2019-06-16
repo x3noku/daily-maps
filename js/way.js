@@ -2,7 +2,7 @@ var
 userCoordinates, tasks = JSON.parse(localStorage.getItem("tasks")),
 params, i = localStorage.getItem("count"), j, refsPoints = [],
 labels = [], times = window.times = [], longs = [],  pathTime = [], arriveTime = [], h,
-emptyTimes = [];
+emptyTimes = [], cc;
 if (localStorage.getItem("changes")) {
   params = JSON.parse(localStorage.getItem("params"));
 } else {
@@ -16,7 +16,7 @@ if (localStorage.getItem("changes")) {
 
 function drawTaskList() {
   $(".task-list").empty();
-  for( let j=0; j<cc; j++ ){
+  for( let j=0, cc = labels.length; j<cc; j++ ){
     $(".task-list").append(
       '<li class="mdl-list__item mdl-list__item--three-line">'+
         '<span class="mdl-list__item-primary-content">'+
@@ -67,7 +67,7 @@ function changeTaskTime( x ) {
       refsPoints.push(hRefsPoints);
       emptyTimes.push(hEmptyTime);
 
-      for( j=0; j<cc; j++ ){
+      for( j=0, cc = labels.length; j<cc; j++ ){
         let myTime = toMinutes( hTime.split(":") );
         let thisTime = toMinutes( times[j].split(":") );
         if( myTime < thisTime ){
@@ -232,9 +232,6 @@ function init() {
         j++;
       }
     }
-  }
-  else {
-    var cc = labels.length;
   }
   ymaps.geolocation.get({  provider: 'auto'  }).then( function(result) {
     refsPoints.unshift(result.geoObjects.get(0).geometry.getCoordinates());
