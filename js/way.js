@@ -1,7 +1,7 @@
 var
 userCoordinates, tasks = JSON.parse(localStorage.getItem("tasks")),
 params, i = localStorage.getItem("count"), j, refsPoints = [],
-labels = [], times = [], longs = [],  pathTime = [], arriveTime = [], h,
+labels = [], times = window.times = [], longs = [],  pathTime = [], arriveTime = [], h,
 emptyTimes = [];
 if (localStorage.getItem("changes")) {
   params = JSON.parse(localStorage.getItem("params"));
@@ -14,26 +14,113 @@ if (localStorage.getItem("changes")) {
   };
 }
 
+function drawTaskList() {
+  $(".task-list").empty();
+  for( let j=0; j<i; j++ ){
+    $(".task-list").append(
+      '<li class="mdl-list__item mdl-list__item--three-line">'+
+        '<span class="mdl-list__item-primary-content">'+
+          '<i class="material-icons mdl-list__item-icon task-icon">trip_origin</i>'+
+          '<span id="task-text">'+ labels[j] +'</span>'+
+          '<span class="mdl-list__item-text-body">'+
+            '<input class="mdl-textfield__input task-list-time" type="time" id="time-'+ j +'" value="'+times[j]+'" onblur="changeTaskTime('+j+');">'+
+            ' ('+ longs[j] +' минут)'+
+          '</span>'+
+        '</span>'+
+      '</li>');
+  }
+}
+
+function changeTaskTime( x ) {
+  let hTime = $("#time-"+x).val(),
+    hLabel = labels[x],
+    hLong = longs[x],
+    hEmptyTime = emptyTimes[x],
+    hRefsPoints = refsPoints[x];
+
+    if( !hTime ){
+      labels.splice(x, 1);
+      times.splice(x, 1);
+      longs.splice(x, 1);
+      refsPoints.splice(x, 1);
+      emptyTimes.splice(x, 1);
+
+      labels.unshift(hLabel);
+      times.unshift(hTime);
+      longs.unshift(hLong);
+      refsPoints.unshift(hRefsPoints);
+      emptyTimes.unshift(1);
+
+      window.changes = true;
+    }
+    else {
+      window.changes = true;
+      labels.splice(x, 1);
+      times.splice(x, 1);
+      longs.splice(x, 1);
+      refsPoints.splice(x, 1);
+      emptyTimes.splice(x, 1);
+
+      labels.push(hLabel);
+      times.push(hTime);
+      longs.push(hLong);
+      refsPoints.push(hRefsPoints);
+      emptyTimes.push(hEmptyTime);
+
+      for( j=0; j<i; j++ ){
+        let myTime = toMinutes( hTime.split(":") );
+        let thisTime = toMinutes( times[j].split(":") );
+        if( myTime < thisTime ){
+          labels.splice(j, 0, hLabel);
+          times.splice(j, 0, hTime);
+          longs.splice(j, 0, hLong);
+          refsPoints.splice(j, 0, hRefsPoints);
+          emptyTimes.splice(j, 0, 0);
+
+          labels.pop();
+          times.pop();
+          longs.pop();
+          refsPoints.pop();
+          emptyTimes.pop();
+          break;
+        }
+      }
+
+    }
+    drawTaskList();
+}
+
 ymaps.ready(init);
 function init() {
-  var myMap = new ymaps.Map("map", {
+  var myMap = window.myMap = new ymaps.Map("map", {
     center: [55.76, 37.64],
     zoom: 7
   });
-  myMap.controls.remove('fullscreenControl').remove('searchControl').remove('rulerControl');
+  var listButton = window.listButton = new ymaps.control.Button({
+    data: {
+      image: '../img/list.svg'
+    }
+  });
+  listButton.events.add('select', function() {
+    dialogList.showModal();
+    changes = window.changes = false;
+    drawTaskList();
+  });
+
+  myMap.controls.remove('fullscreenControl').remove('searchControl').remove('rulerControl').add(listButton, {float: 'right'});
 
   function calculateStartTimes() {
-    if( times[i] == '' ){
-      times[i] = "14:00";
-      emptyTimes[i] = 1;
+    if( times[i-1] == '' ){
+      times[i-1] = '14:00';
+      emptyTimes[i-1] = 1;
     }
     for( j=i-2; j>=0; j-- ){
-      if( times[j] == '' || emptyTimes ){
+      if( times[j] == '' || emptyTimes[j] ){
         times[j] = toHours( toMinutes(times[j+1].split(":")) - pathTime[j+1] - longs[j] );
         emptyTimes[j] = 1;
-        console.log( toHours( toMinutes(times[j+1].split(":")) - pathTime[j+1] - longs[j] ) );
       }
     }
+    drawTaskList();
   }
 
   function calculateTime( pathTime ) {
@@ -66,7 +153,6 @@ function init() {
   function getPathTime( multiRoute ) {
     var activeRoute = multiRoute.getActiveRoute();
     var activeRoutePaths = activeRoute.getPaths();
-    //console.log("Время прохождения всего пути: " + activeRoute.properties.get("duration").text);
     j = 0;
     activeRoutePaths.each(function(path) {
       pathTime[j] = path.properties.get("duration").text.replace(/[^ 0-9]/gim,'').split(" ");
@@ -97,8 +183,8 @@ function init() {
     }
   }
 
-  function buildRoute() {
-    multiRoute = new ymaps.multiRouter.MultiRoute({
+  window.buildRoute = function() {
+    multiRoute = window.multiRoute = new ymaps.multiRouter.MultiRoute({
       // Точки маршрута. Точки могут быть заданы как координатами, так и адресом.
       referencePoints: refsPoints,
       params: {
@@ -116,13 +202,13 @@ function init() {
       calculateTime( pathTime );
       nameBaloons(multiRoute);
     });
-
     multiRoute.events.add('activeroutechange', function() {
       getPathTime( multiRoute );
       calculateStartTimes();
       calculateTime( pathTime );
       nameBaloons(multiRoute);
     });
+
   }
 
   if( i > 0 ) {
@@ -156,6 +242,23 @@ function init() {
 
 /******************************************************************************/
 $(document).ready(function(){
+
+  var dialogList = window.dialogList = document.querySelector('.list-dialog');
+
+  if (! dialogList.showModal) {
+    dialogPolyfill.registerDialog(dialogList);
+  }
+  dialogList.querySelector('.list-dialog--close').addEventListener('click', function() {
+    dialogList.close();
+    listButton.deselect();
+    if( changes ){
+      myMap.geoObjects.remove(multiRoute);
+      buildRoute();
+    }
+  });
+
+
+
   var dialogReg = document.querySelector('.register-dialog');
   var showDialogButtonReg = document.querySelector('.show-register-dialog');
 

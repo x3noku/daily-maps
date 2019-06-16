@@ -47,7 +47,7 @@ ul {
   width: 100%;
 }
 
-.register-dialog, .login-dialog, .template-dialog {
+.register-dialog, .login-dialog, .list-dialog {
   width: 80%;
 }
 
@@ -257,6 +257,18 @@ ul {
   margin-right: auto;
 }
 
+.task-list-time {
+  display: inline;
+  width: 80px;
+  padding-bottom: 0px;
+}
+
+.task-icon, .mdl-list__item-icon {
+  margin-right: 16px !important;
+  margin-top: 12px;
+  font-size: 18px;
+}
+
 #mdl-task {
   padding: 8px;
 }
@@ -269,7 +281,7 @@ ul {
 
 /*-_-_-_-_-_-_-_-_-_-_-_-<SCROLLBAR>-_-_-_-_-_-_-_-_-_-_-_-*/
 ::-webkit-scrollbar {
-    width: 0.4%;
+    width: 3px;
 }
 
 ::-webkit-scrollbar-track {
@@ -288,8 +300,7 @@ ul {
   .register-dialog, .login-dialog {
     width: 380px;
   }
-  .template-dialog {
-    width: 600px;
-    height: 600px;
+  .list-dialog {
+    width: 360px;
   }
 }

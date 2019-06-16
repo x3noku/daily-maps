@@ -163,6 +163,18 @@ if( !empty($_SESSION['userID']) and !empty($_SESSION['userPASS']) ){
 
         <div id="map" class="fullScreenRoute"></div>
 
+        <dialog class="mdl-dialog list-dialog">
+          <h4 class="mdl-dialog__title">Список заданий </h4>
+          <div class="mdl-dialog__content" id="list-dialog-content">
+            <ul class="mdl-list task-list" style="overflow-y:scroll; height: 200px;">
+
+            </ul>
+          </div>
+          <div class="mdl-dialog__actions">
+            <button class="mdl-button list-dialog--close" id="list-dialog--close">Закрыть</button>
+          </div>
+        </dialog>
+
         <!--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-->
 <?php if( empty($_SESSION['userID']) and empty($_SESSION['userPASS']) ){ ?>
 <dialog class="mdl-dialog login-dialog">
